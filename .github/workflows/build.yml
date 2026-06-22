@@ -23,13 +23,7 @@ jobs:
         pip install --upgrade pip
         pip install buildozer cython
 
-    - name: Accept Android SDK Licenses
-      run: |
-        mkdir -p ~/.android
-        touch ~/.android/repositories.cfg
-        yes | buildozer android licenses
-
     - name: Build with Buildozer
       run: |
-        buildozer android debug
-        
+        # الموافقة التلقائية على الرخص أثناء التجميع مباشرة لمنع توقف السيرفر
+        yes | buildozer android debug
