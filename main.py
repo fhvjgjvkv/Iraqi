@@ -116,13 +116,13 @@ class IraqiAdviceApp(App):
     def عرض_نصيحة_جديدة(self):
         if not self.كل_النصائح: return
 
-        # تم تصحيح الكود هنا من mتاح إلى متاح
-        متاح = [q for q in self.كل_النصائح if q not in self.المعروضة_مسبقا]
-        if not متاح:
+        # تم استبدال الاسم بمتغير إنجليزي لمنع أي خطأ في الحروف العربية داخل الكود
+        available_quotes = [q for q in self.كل_النصائح if q not in self.المعروضة_مسبقا]
+        if not available_quotes:
             self.المعروضة_مسبقا.clear()
-            متاح = self.كل_النصائح
+            available_quotes = self.كل_النصائح
 
-        انتخاب = random.choice(متاح)
+        انتخاب = random.choice(available_quotes)
         self.المعروضة_مسبقا.add(انتخاب)
         self.label.text = fix_arabic(انتخاب)
 
@@ -131,7 +131,6 @@ class IraqiAdviceApp(App):
         if text:
             current_data = self.store.get('quotes_list')['data']
             
-            # ميزة منع التكرار عند الحفظ
             if text in current_data or text in self.كل_النصائح:
                 self.label.text = fix_arabic("هذه الحكمة موجودة مسبقاً في تطبيقك!")
                 self.input_field.text = ""
